@@ -10,9 +10,15 @@ module.exports = {
   "on_exit": "./sauce_labs/saucie-disconnect.js",
   "port": 8080,
   "launchers": {
-    "SL_Chrome_Current": {
+    "SL_Chrome_Android": {
       "exe": "saucie",
-      "args": ["-b", "chrome", "-p", "Windows 10", "-v", "latest", "--no-connect", "-u"],
+      "args": [
+        "--browser", "Chrome",
+        "--device-name", "Android Emulator",
+        "--platform", "Android",
+        "--platform-version", "6.0",
+        "--device-orientation", "portrait",
+        "--no-connect", "-u"],
       "protocol": "tap"
     },
     "SL_MS_Edge": {
@@ -34,6 +40,7 @@ module.exports = {
   "launch_in_ci": [
     "Chrome",
     "Firefox",
+    "SL_Chrome_Android",
     "SL_Safari_Current",
     "SL_MS_Edge",
     "SL_IE_11"
