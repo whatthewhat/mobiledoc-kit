@@ -11,7 +11,7 @@ import SelectionManager from 'mobiledoc-kit/editor/selection-manager';
 import Browser from 'mobiledoc-kit/utils/browser';
 
 const ELEMENT_EVENT_TYPES = [
-  'keydown', 'keyup', 'cut', 'copy', 'paste', 'keypress', 'drop'
+  'keydown', 'keyup', 'cut', 'copy', 'paste', 'keypress', 'drop', 'compositionstart', 'compositionend'
 ];
 
 export default class EventManager {
@@ -147,6 +147,18 @@ export default class EventManager {
     }
 
     _textInputHandler.handle(key.toString());
+  }
+
+  compositionstart() {
+    this.editor._isComposing = true;
+  }
+
+  compositionend() {
+    this.editor._isComposing = false;
+
+    let range = this.editor.cursor.offsets;
+    this.editor.rerender();
+    this.editor.selectRange(range);
   }
 
   keydown(event) {

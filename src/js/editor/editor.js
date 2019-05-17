@@ -449,20 +449,22 @@ class Editor {
     });
     this._removeDetachedSections();
 
-    if (this._renderTree.isDirty) {
-      currentRange = this.range;
-    }
+    if (!this._isComposing) {
+      if (this._renderTree.isDirty) {
+        currentRange = this.range;
+      }
 
-    // force the current snapshot's range to remain the same rather than
-    // rereading it from DOM after the new character is applied and the browser
-    // updates the cursor position
-    let range = this._editHistory._pendingSnapshot.range;
-    this.run(() => {
-      this._editHistory._pendingSnapshot.range = range;
-    });
-    this.rerender();
-    if (currentRange) {
-      this.selectRange(currentRange);
+      // force the current snapshot's range to remain the same rather than
+      // rereading it from DOM after the new character is applied and the browser
+      // updates the cursor position
+      let range = this._editHistory._pendingSnapshot.range;
+      this.run(() => {
+        this._editHistory._pendingSnapshot.range = range;
+      });
+      this.rerender();
+      if (currentRange) {
+        this.selectRange(currentRange);
+      }
     }
 
     this.runCallbacks(CALLBACK_QUEUES.DID_REPARSE);
