@@ -321,7 +321,7 @@ class Visitor {
       renderNode.element = document.createElement('div');
     }
     addClassName(renderNode.element, EDITOR_ELEMENT_CLASS_NAME);
-    if (post.hasContent) {
+    if (post.hasContent || this.editor._isComposing) {
       removeClassName(renderNode.element, EDITOR_HAS_NO_CONTENT_CLASS_NAME);
     } else {
       addClassName(renderNode.element, EDITOR_HAS_NO_CONTENT_CLASS_NAME);

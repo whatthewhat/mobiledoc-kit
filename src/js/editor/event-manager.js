@@ -151,6 +151,7 @@ export default class EventManager {
 
   compositionstart() {
     this.editor._isComposing = true;
+    this.editor.rerender();
   }
 
   compositionend() {
